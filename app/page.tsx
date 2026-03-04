@@ -1,9 +1,42 @@
 import LanguageChart from '../components/LanguageChart';
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ user?: string }> }) {
-  
   const params = await searchParams;
-  const targetUser = params.user || "dylannsp11";
+  
+
+  const targetUser = params.user;
+
+  if (!targetUser) {
+    return (
+      <main className="min-h-screen bg-black flex flex-col items-center justify-center p-8 font-sans selection:bg-zinc-800">
+        <div className="max-w-2xl w-full text-center space-y-8 -mt-20">
+          <div>
+            <h1 className="text-5xl font-extrabold tracking-tight text-white mb-4">
+              Portfolio Analyzer
+            </h1>
+            <p className="text-zinc-400 text-lg">
+              Uncover the coding habits, top languages, and most popular repositories of any developer on GitHub.
+            </p>
+          </div>
+          
+          <form method="GET" action="/" className="w-full flex justify-center">
+            <div className="flex w-full max-w-lg rounded-xl overflow-hidden border border-zinc-800 focus-within:border-zinc-500 transition-colors bg-zinc-950 shadow-2xl">
+              <input 
+                type="text" 
+                name="user" 
+                placeholder="Search a GitHub username (e.g., gaearon)..." 
+                className="w-full px-5 py-4 bg-transparent text-zinc-100 focus:outline-none placeholder-zinc-600 text-base"
+                autoFocus
+              />
+              <button type="submit" className="px-6 py-4 bg-zinc-900 hover:bg-zinc-800 text-white font-medium border-l border-zinc-800 transition-colors">
+                Analyze
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+    );
+  }
 
   // 3. Inject the dynamic targetUser into the query
   const query = `
@@ -96,7 +129,7 @@ return (
               <button type="submit" className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium border-l border-zinc-800 transition-colors">
                 Search
               </button>
-            </div>
+              </div>
           </form>
         </div>
 
@@ -104,7 +137,10 @@ return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* LEFT COLUMN: Profile & Chart */}
-          <div className="lg:col-span-5 space-y-8">
+          <div className="lg:col-span-5 space-y-8 opacity-0 animate-slide-up-fade">
+            {/* ... Profile Card ... */}
+            {/* ... Language Chart ... */}
+          
              {/* User Profile Card */}
             <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl flex flex-col gap-4">
               <div className="flex items-center gap-4">
@@ -136,11 +172,12 @@ return (
           </div>
 
           {/* RIGHT COLUMN: Top Repositories */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 opacity-0 animate-slide-up-fade" style={{ animationDelay: '150ms' }}>
             <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-3">
               Top Repositories
               <div className="h-px bg-zinc-800 grow"></div>
             </h2>
+            {/* ... Repository Cards ... */}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {repos.map((repo: any) => (
