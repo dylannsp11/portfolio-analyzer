@@ -2,7 +2,7 @@
 
 A sleek, dark-mode developer dashboard that visualizes GitHub profiles, top programming languages, and most starred repositories.
 
-![Portfolio Analyzer Screenshot](/screenshot.png)
+![Portfolio Analyzer Screenshot](public/Screenshot.png)
 
 ## Features
 
